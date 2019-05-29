@@ -8,6 +8,8 @@ libobjects = container_box.o container_split.o guielement_placeholder.o guieleme
 demo: demo.out
 	./demo.out
 
+lib: ncgui.a
+
 demo.out: ncgui.a demo.o
 	$(CC) demo.o ncgui.a $(CFLAGS) $(LIBS) -o demo.out
 
