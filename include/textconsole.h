@@ -4,7 +4,7 @@
 #include <string>
 #include <list>
 #include <ncurses.h>
-#include "guielement_generic.h"
+#include <ncgui/guielement_generic.h>
 
 namespace ncgui {
 	

@@ -3,19 +3,49 @@ CC = g++
 CFLAGS = 
 LIBS = -lncurses
 
-libobjects = container_box.o container_split.o guielement_placeholder.o guielement_textconsole.o guielement_window.o
+headerfiles = $(wildcard include/*)
+libobjects = $(addsuffix .o, $(basename $(notdir $(wildcard src/*))))
 
 demo: demo.out
-	./demo.out
+	@printf "running demo program.\n"
+	@./demo.out
 
-lib: ncgui.a
+demo.out: install
+	@# compiling demo program
+	@printf "compiling demo program\n"
+	@$(CC) demo.cpp -lncgui $(CFLAGS) $(LIBS) -o demo.out
 
-demo.out: ncgui.a demo.o
-	$(CC) demo.o ncgui.a $(CFLAGS) $(LIBS) -o demo.out
+obj/%.o: src/%.cpp
+	@# compiling source files
+	@printf "  compiling $(notdir $^)"
+	@$(CC) -c -o $@ $^ $(LIBS) $(CFLAGS)
+	@printf "\n"
 
-%.o: %.cpp
-	$(CC) -c -o $@ $^ $(LIBS) $(CFLAGS)
+libncgui.a: $(addprefix obj/, $(libobjects))
+	@# compiling static library file
+	@printf "creating library file.\n"
+	@ar r libncgui.a $(addprefix obj/, $(libobjects))
 
-ncgui.a: $(libobjects)
-	ar r ncgui.a $(libobjects)
+install_headers: $(headerfiles)
+	@# moving header files to appropriate location
+	@printf "installing header files\n"
+	@if [ -e /usr/local/include/ncgui ]; then printf "existing header files found, deleting them.\n"; sudo rm -r /usr/local/include/ncgui; else true; fi
+	@sudo mkdir /usr/local/include/ncgui
+	@sudo cp ./include/*.h /usr/local/include/ncgui/
+	@printf "header files installed.\n"
+
+install_lib: install_headers libncgui.a
+	@# libncgui.a is compiled, moving it to appropriate location
+	@sudo mv libncgui.a /usr/local/lib/
+
+install: install_lib
+	@printf "ncgui library installed sucessfully.\n"
+
+uninstall:
+	@sudo rm /usr/local/include/ncgui -r || true
+	@sudo rm /usr/local/lib/libncgui.a || true
+
+clean:
+	@sudo rm obj/* || true
+	@sudo rm libncgui.a || true
 

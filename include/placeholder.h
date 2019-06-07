@@ -1,7 +1,7 @@
 #ifndef _guielement_placeholder_h
 #define _guielement_placeholder_h
 
-#include "guielement_generic.h"
+#include <ncgui/guielement_generic.h>
 #include <ncurses.h>
 #include <string>
 

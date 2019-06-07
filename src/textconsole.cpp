@@ -1,4 +1,4 @@
-#include "guielement_textconsole.h"
+#include <ncgui/textconsole.h>
 
 using namespace ncgui;
 

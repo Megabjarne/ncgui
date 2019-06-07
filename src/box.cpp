@@ -1,4 +1,4 @@
-#include "container_box.h"
+#include <ncgui/box.h>
 
 using namespace ncgui;
 

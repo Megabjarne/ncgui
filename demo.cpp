@@ -3,11 +3,11 @@
 #include <string>
 
 // we include the header files of the ncgui library
-#include "container_split.h"
-#include "guielement_placeholder.h"
-#include "guielement_window.h" // not used here
-#include "container_box.h"
-#include "guielement_textconsole.cpp"
+#include <ncgui/split.h>
+#include <ncgui/placeholder.h>
+#include <ncgui/rawdisplay.h> // not used here
+#include <ncgui/box.h>
+#include <ncgui/textconsole.h>
 
 int main(){
 	/* --------------------- GUI SESSION SETUP --------------------- */

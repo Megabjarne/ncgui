@@ -1,5 +1,5 @@
 
-#include "container_split.h"
+#include <ncgui/split.h>
 
 #include <iostream>
 using std::cerr;
